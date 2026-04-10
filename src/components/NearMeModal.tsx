@@ -39,7 +39,7 @@ const NearMeModal: React.FC<NearMeModalProps> = ({ isOpen, onClose }) => {
                 const { latitude, longitude } = position.coords;
 
                 try {
-                    const res = await fetch('http://localhost:8080/api/near-me', {
+                    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api/near-me`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ lat: latitude, lng: longitude })
@@ -53,7 +53,7 @@ const NearMeModal: React.FC<NearMeModalProps> = ({ isOpen, onClose }) => {
                         setErrorMsg("AI Generation Error: " + (data.error || "Failed to parse boundary."));
                     }
                 } catch (err) {
-                    setErrorMsg("Network Error: Could not reach Roamly Cloud at http://localhost:8080.");
+                    setErrorMsg("Network Error: Could not reach Roamly Cloud.");
                 } finally {
                     setIsLocating(false);
                 }

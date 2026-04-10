@@ -11,7 +11,7 @@ const SharedItinerary: React.FC = () => {
     useEffect(() => {
         const fetchPlan = async () => {
             try {
-                const res = await fetch(`http://localhost:8080/api/plan/${planId}`);
+                const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api/plan/${planId}`);
                 const data = await res.json();
                 
                 if (res.ok) {
@@ -20,7 +20,7 @@ const SharedItinerary: React.FC = () => {
                     setErrorMsg(data.error || "Failed to load itinerary");
                 }
             } catch (err) {
-                setErrorMsg("Network Error: Could not connect to backend at http://localhost:8080");
+                setErrorMsg("Network Error: Could not connect to backend");
             } finally {
                 setLoading(false);
             }

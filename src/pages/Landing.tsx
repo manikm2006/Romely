@@ -56,7 +56,7 @@ const Landing: React.FC = () => {
         setIsSurprising(true);
         setSurpriseData(null);
         try {
-            const res = await fetch('http://localhost:8080/api/surprise');
+            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api/surprise`);
             const data = await res.json();
             if (res.ok) {
                 setSurpriseData(data);
@@ -64,7 +64,7 @@ const Landing: React.FC = () => {
                 alert("Surprise AI Error: " + (data.error || "Failed to fetch destination"));
             }
         } catch (err) {
-            alert("Network Error: Could not connect to backend at http://localhost:8080");
+            alert("Network Error: Could not connect to backend");
         } finally {
             setIsSurprising(false);
         }

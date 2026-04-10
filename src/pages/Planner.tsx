@@ -47,7 +47,7 @@ const Planner: React.FC = () => {
         setLoadingMessage("Generating AI trip itinerary & mapping logistics... (Ensure API keys are set)");
         
         try {
-            const res = await fetch('http://localhost:8080/api/generate-itinerary', {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api/generate-itinerary`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -63,7 +63,7 @@ const Planner: React.FC = () => {
                 setStep('form');
             }
         } catch (err) {
-            alert("Network Error: Could not connect to backend at http://localhost:8080");
+            alert("Network Error: Could not connect to backend");
             setStep('form');
         }
     };
@@ -72,7 +72,7 @@ const Planner: React.FC = () => {
         if (!planData || !planData.planId) return;
 
         try {
-            const res = await fetch('http://localhost:8080/api/replan-event', {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api/replan-event`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ planId: planData.planId, eventIdToReplace })
@@ -85,7 +85,7 @@ const Planner: React.FC = () => {
                 alert("Replan Error: " + JSON.stringify(data.error));
             }
         } catch (err) {
-            alert("Network Error: Could not connect to backend at http://localhost:8080");
+            alert("Network Error: Could not connect to backend");
         }
     };
 
